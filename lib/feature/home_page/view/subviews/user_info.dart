@@ -9,8 +9,9 @@ class UserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 124.w,
-      height: 70.h,
+      height: 80.h,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -19,18 +20,22 @@ class UserDetails extends StatelessWidget {
                 "Hello",
                 style: AppTextStyles.textStyle6,
               ),
-              Text(
-                "User",
-                style: AppTextStyles.textStyle7,
+              Flexible(
+                child: Text(
+                  "User",
+                  style: AppTextStyles.textStyle7,
+                ),
               ),
             ],
           ),
           SizedBox(
             width: 5.w,
           ),
-          CircleAvatar(
-            radius: 40.r,
-            backgroundImage: AssetImage("assets/svg/user.png"),
+          Flexible(
+            child: CircleAvatar(
+              radius: 40.r,
+              backgroundImage: const AssetImage("assets/svg/user.png",),
+            ),
           )
         ],
       ),

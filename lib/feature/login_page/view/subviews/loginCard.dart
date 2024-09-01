@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:jungle_windows_application/common/buttons/primary_button.dart';
 import 'package:jungle_windows_application/common/styles/typography.dart';
 import 'package:jungle_windows_application/feature/home_page/view/home_screen.dart';
+import 'package:jungle_windows_application/feature/login_page/controller/login_controller.dart';
 
 // ignore: must_be_immutable
 class LoginCard extends StatelessWidget {
-  const LoginCard({super.key});
+  LoginCard({super.key});
 
   final bool _isChecked = true;
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +61,7 @@ class LoginCard extends StatelessWidget {
               ),
               child: Center(
                 child: TextField(
+                  controller: usernameController,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     isCollapsed: true,
@@ -88,6 +95,7 @@ class LoginCard extends StatelessWidget {
               ),
               child: Center(
                 child: TextField(
+                  controller: passwordController,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     isCollapsed: true,
@@ -145,8 +153,10 @@ class LoginCard extends StatelessWidget {
             PrimaryButton(
                 text: "Log In",
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  loginController.login(
+                    usernameController.text,
+                    passwordController.text,
+                  );
                 })
           ],
         ),

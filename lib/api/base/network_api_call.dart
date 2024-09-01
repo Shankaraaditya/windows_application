@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -16,7 +15,7 @@ class Api extends BaseService {
 
   static Dio createDio() {
     var dio = Dio(BaseOptions(
-      baseUrl: "Globals().Url",
+      baseUrl: "https://mfatest.wijungle.com:9084",
       receiveTimeout: Duration(seconds: 15), // 15 seconds
       connectTimeout: Duration(seconds: 15), // 15 seconds,
       sendTimeout: Duration(seconds: 15), // 15 seconds,
@@ -86,7 +85,7 @@ class Api extends BaseService {
       Response response = await dio
           .get(
             baseurl + url ?? '',
-            queryParameters: queryParameters,
+            // queryParameters: queryParameters,
             options: Options(headers: header),
           )
           .timeout(const Duration(seconds: 10));
@@ -99,17 +98,17 @@ class Api extends BaseService {
   }
 
   dynamic returnResponse(Response response) {
-    switch (response.statusCode) {
-      case 200:
-        dynamic responseJson = jsonDecode(response.data);
-        return responseJson;
-      case 400:
-        dynamic responseJson = jsonDecode(response.data);
-        return responseJson;
-
-      default:
-        throw FetchDataException(
-            'Error accoured while communicating with server ${response.statusCode}');
-    }
+  switch (response.statusCode) {
+    case 200:
+      dynamic responseJson = response.data; 
+      return responseJson;
+    case 400:
+      dynamic responseJson = response.data; 
+      return responseJson;
+    default:
+      throw FetchDataException(
+          'Error occurred while communicating with server ${response.statusCode}');
   }
+}
+
 }
